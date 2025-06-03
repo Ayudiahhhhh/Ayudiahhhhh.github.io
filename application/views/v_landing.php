@@ -208,7 +208,7 @@
     <!-- <div class="feature-item"><i class="fas fa-cloud-upload-alt"></i>Sinkronisasi Cloud</div> -->
     <div class="feature-item"><i class="fas fa-lock"></i>Privasi Aman</div>
     <!-- <div class="feature-item"><i class="fas fa-adjust"></i>Tema Gelap/Terang</div> -->
-    <!-- <div class="feature-item"><i class="fas fa-file-pdf"></i>Export ke PDF</div> -->
+    <div class="feature-item"><i class="fas fa-file-pdf"></i>Export ke PDF</div>
   </div>
 </section>
 
