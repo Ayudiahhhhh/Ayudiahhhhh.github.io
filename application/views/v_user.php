@@ -52,7 +52,14 @@
                                         <button onclick="window.print()" class="btn btn-secondary">
                                             <i class="fa fa-print"></i> Print Halaman
                                         </button>
-
+                                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-download"></i> Export
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
+                                                <li><a class="dropdown-item" href="<?= base_url('user/pdf'); ?>">PDF</a></li>
+                                                <li><a class="dropdown-item" href="<?= base_url('user/excel_html'); ?>">EXCEL</a></li>
+                                            </ul>
                                     </div>
                                 </div>
                                 <div class="table-responsive">

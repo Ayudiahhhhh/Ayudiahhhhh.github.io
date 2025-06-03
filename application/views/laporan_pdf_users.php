@@ -45,25 +45,21 @@
     </style>
 </head>
 <body>
-    <h3>Laporan Catatan Kegiatan</h3>
+    <h3>Laporan Data Users</h3>
     <table>
         <thead>
             <tr>
                 <th>No</th>
-                <th>Hari</th>
-                <th>Tanggal</th>
-                <th>Catatan</th>
-                <th>Status</th>
+                <th>Username</th>
+                <th>Role</th>
             </tr>
         </thead>
         <tbody>
-            <?php $no = 1; foreach ($catatan_kegiatan as $row): ?>
+            <?php $no = 1; foreach ($users as $sers): ?>
             <tr>
                 <td style="text-align: center;"><?= $no++ ?></td>
-                <td><?= htmlspecialchars($row->hari) ?></td>
-                <td><?= htmlspecialchars($row->tanggal) ?></td>
-                <td><?= htmlspecialchars($row->catatan) ?></td>
-                <td><?= htmlspecialchars($row->status) ?></td>
+                <td><?= htmlspecialchars($sers->username) ?></td>
+                <td><?= htmlspecialchars($sers->role) ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>

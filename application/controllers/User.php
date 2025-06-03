@@ -133,4 +133,22 @@ public function updateuserpp() {
 
     redirect('user/editpp');
 }
+public function pdf()
+    {
+
+        $this->load->library('pdfgenerator');
+        $data['title'] = "Data Random";
+        $data['users'] = $this->m_user->tampil_data('users')->result();
+        $file_pdf = "test";
+        $paper = 'A4';
+        $orientation = "landscape";
+        $html = $this->load->view('laporan_pdf_users', $data, true);
+        $this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+    }
+
+   public function excel_html()
+{
+    $data['users'] = $this->m_user->tampil_data('users')->result();
+    $this->load->view('catatan_kegiatan_users', $data);
+}
 }

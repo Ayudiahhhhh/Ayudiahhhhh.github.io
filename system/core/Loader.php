@@ -171,6 +171,7 @@ class CI_Loader {
 	 * @param 	string		$class	Class name to check for
 	 * @return 	string|bool	Class object name if loaded or FALSE
 	 */
+	
 	public function is_loaded($class)
 	{
 		return array_search(ucfirst($class), $this->_ci_classes, TRUE);

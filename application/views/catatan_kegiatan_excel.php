@@ -1,51 +1,37 @@
+<?php
+header("Content-Type: application/vnd.ms-excel");
+header("Content-Disposition: attachment; filename=catatan_kegiatan.xls");
+?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Laporan Catatan Kegiatan</title>
+    <meta charset="UTF-8">
+    <title>Export Catatan Kegiatan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: #333;
         }
-
-        h3 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
         table {
-            width: 100%;
             border-collapse: collapse;
-            margin: auto;
+            width: 100%;
+            font-size: 14px;
         }
-
         table, th, td {
-            border: 1px solid #555;
+            border: 1px solid #000;
         }
-
-        th {
-            background-color: #f2f2f2;
+        thead th {
+            background-color: #d3d3d3;
             text-align: center;
-            padding: 8px;
+            font-weight: bold;
         }
-
         td {
-            padding: 8px;
             vertical-align: top;
-        }
-
-        tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-
-        tr:hover {
-            background-color: #f1f1f1;
+            padding: 5px;
         }
     </style>
 </head>
 <body>
-    <h3>Laporan Catatan Kegiatan</h3>
+<h3 style="text-align: center;">Laporan Catatan Kegiatan</h3>
     <table>
         <thead>
             <tr>
@@ -60,10 +46,10 @@
             <?php $no = 1; foreach ($catatan_kegiatan as $row): ?>
             <tr>
                 <td style="text-align: center;"><?= $no++ ?></td>
-                <td><?= htmlspecialchars($row->hari) ?></td>
-                <td><?= htmlspecialchars($row->tanggal) ?></td>
-                <td><?= htmlspecialchars($row->catatan) ?></td>
-                <td><?= htmlspecialchars($row->status) ?></td>
+                <td><?= $row->hari ?></td>
+                <td><?= date('d-m-Y', strtotime($row->tanggal)) ?></td>
+                <td><?= $row->catatan ?></td>
+                <td style="text-align: center;"><?= $row->status ?></td>
             </tr>
             <?php endforeach; ?>
         </tbody>

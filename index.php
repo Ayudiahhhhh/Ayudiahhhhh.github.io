@@ -193,6 +193,7 @@ switch (ENVIRONMENT)
 	if (defined('STDIN'))
 	{
 		chdir(dirname(__FILE__));
+
 	}
 
 	if (($_temp = realpath($system_path)) !== FALSE)

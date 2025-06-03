@@ -158,4 +158,11 @@ class Catatan extends CI_Controller
         $writer->save('php://output');
         exit;
     }
+
+    public function excel_html()
+{
+    $data['catatan_kegiatan'] = $this->m_catatan->tampil_data('catatan_kegiatan')->result();
+    $this->load->view('catatan_kegiatan_excel', $data);
+}
+
 }

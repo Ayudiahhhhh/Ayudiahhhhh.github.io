@@ -63,7 +63,7 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
                                                 <li><a class="dropdown-item" href="<?= base_url('catatan/pdf'); ?>">PDF</a></li>
-                                                <li><a class="dropdown-item" href="<?= base_url('catatan/excel'); ?>">EXCEL</a></li>
+                                                <li><a class="dropdown-item" href="<?= base_url('catatan/excel_html'); ?>">EXCEL</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -81,6 +81,7 @@
                                                 <th scope="col">HARI</th>
                                                 <th scope="col">TANGGAL</th>
                                                 <th scope="col">CATATAN</th>
+                                                <th scope="col">JUMLAH</th>
                                                 <?php if ($this->session->userdata('role') == "pengguna") { ?>
                                                     <th scope="col">STATUS</th>
                                                 <?php } ?>
