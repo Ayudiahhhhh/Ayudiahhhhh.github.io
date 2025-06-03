@@ -1,0 +1,173 @@
+<?php
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+class Catatan extends CI_Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->M_squrity->getSqurity();
+        $this->load->model('m_catatan');
+    }
+
+    public function index()
+{
+    if ($this->session->userdata('role') == 'admin') {
+        $data['catatan_kegiatan'] = $this->m_catatan->get_all_catatan(); 
+    } else {
+        $user_id = $this->session->userdata('id');
+        $data['catatan_kegiatan'] = $this->m_catatan->get_user_catatan($user_id); 
+    }
+
+    $this->load->view('templates/header');
+    $this->load->view('templates/aside');
+    $this->load->view('v_catatan_harian', $data);
+    $this->load->view('templates/footer');
+}
+
+
+    public function tambahcatatan()
+    {
+        $hari    = $this->input->post('hari');
+        $tanggal = $this->input->post('tanggal');
+        $catatan = $this->input->post('catatan');
+        $status = $this->input->post('status');
+
+
+        $data = [
+
+            'hari'    => $hari,
+            'tanggal' => $tanggal,
+            'users_id' => $this->session->userdata('id'),
+            'catatan' => $catatan,
+            'status' => $status,
+
+        ];
+
+        $this->m_catatan->input_data($data, 'catatan_kegiatan');
+        $this->session->set_flashdata('message', '<script>Swal.fire({
+  title: "Success!",
+  text: "Tambah Data Berhasil",
+  icon: "success"
+});</script>');
+        redirect('catatan');
+    }
+
+    public function hapus($id)
+    {
+        $where = array('id' => $id);
+        $this->m_catatan->hapus_data($where, 'catatan_kegiatan');
+          $this->session->set_flashdata('message', '<script>Swal.fire({
+  title: "Success!",
+  text: "Hapus Data Berhasil",
+  icon: "success"
+});</script>');
+        redirect('catatan/index');
+    }
+
+    public function edit($id)
+    {
+        $where = array('id' => $id);
+        $data['catatan_kegiatan'] = $this->m_catatan->edit_data($where, 'catatan_kegiatan')->result();
+        $this->load->view('edit', $data);
+    }
+
+    public function updatecatatan()
+    {
+        $id                 = $this->input->post('id');
+        $hari              = $this->input->post('hari');
+        $tanggal            = $this->input->post('tanggal');
+        $catatan            = $this->input->post('catatan');
+
+        $data = array(
+            'hari'          => $hari,
+            'tanggal'       => $tanggal,
+            'catatan'       => $catatan,
+        );
+        $where = array(
+            'id'          => $id
+        );
+        $this->m_catatan->update_data($where, $data, 'catatan_kegiatan');
+          $this->session->set_flashdata('message', '<script>Swal.fire({
+  title: "Success!",
+  text: "Edit Data Berhasil",
+  icon: "success"
+});</script>');
+        redirect('catatan/index');
+    }
+    public function detail($id)
+    {
+        $cttan = $this->m_catatan->detail_data($id);
+        $data['cttan'] = $cttan; 
+        $this->load->view('v_detail', $data);
+    }
+    public function pdf()
+    {
+       
+        $this->load->library('pdfgenerator');
+        $data['title'] = "Data Random";
+        $data['catatan_kegiatan'] = $this->m_catatan->tampil_data('catatan_kegiatan')->result();
+        $file_pdf = "test";
+        $paper = 'A4';
+        $orientation = "landscape";
+        $html = $this->load->view('laporan_pdf', $data, true);
+        $this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+    }
+
+    public function excel()
+    {
+        $data['catatan'] = $this->m_catatan->tampil_data('catatan_kegiatan')->result();
+
+        // Membuat objek spreadsheet baru
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Menetapkan properti file
+        $spreadsheet->getProperties()->setCreator("Framework Dunia");
+        $spreadsheet->getProperties()->setLastModifiedBy("Framework Dunia");
+        $spreadsheet->getProperties()->setTitle("Daftar catatan");
+
+        // Menetapkan judul kolom
+        $sheet->setCellValue('A1', 'NO');
+        $sheet->setCellValue('B1', 'NAMA catatan');
+        $sheet->setCellValue('C1', 'NIM');
+        $sheet->setCellValue('D1', 'TANGGAL LAHIR');
+        $sheet->setCellValue('E1', 'JURUSAN');
+        $sheet->setCellValue('F1', 'ALAMAT');
+        $sheet->setCellValue('G1', 'EMAIL');
+        $sheet->setCellValue('H1', 'NO. TELEPON');
+
+        // Menambahkan data catatan
+        $baris = 2;
+        $no = 1;
+
+        foreach ($data['catatan'] as $cttan) {
+            $sheet->setCellValue('A' . $baris, $no++);  // No urut
+            $sheet->setCellValue('B' . $baris, $cttan->nama);
+            $sheet->setCellValue('C' . $baris, $cttan->nim);
+            $sheet->setCellValue('D' . $baris, $cttan->tgl_lahir);
+            $sheet->setCellValue('E' . $baris, $cttan->jurusan);
+            $sheet->setCellValue('F' . $baris, $cttan->alamat);
+            $sheet->setCellValue('G' . $baris, $cttan->email);
+            $sheet->setCellValue('H' . $baris, $cttan->no_telp);
+
+            $baris++;
+        }
+
+        $filename = "Data catatan.xlsx";
+
+        // Menyediakan file untuk diunduh oleh user
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $filename . '"');
+        header('Cache-Control: max-age=0');
+
+        // Menulis file Excel dan mengirimkan ke browser
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('php://output');
+        exit;
+    }
+
+
+}
