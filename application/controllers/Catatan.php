@@ -13,19 +13,19 @@ class Catatan extends CI_Controller
     }
 
     public function index()
-{
-    if ($this->session->userdata('role') == 'admin') {
-        $data['catatan_kegiatan'] = $this->m_catatan->get_all_catatan(); 
-    } else {
-        $user_id = $this->session->userdata('id');
-        $data['catatan_kegiatan'] = $this->m_catatan->get_user_catatan($user_id); 
-    }
+    {
+        if ($this->session->userdata('role') == 'admin') {
+            $data['catatan_kegiatan'] = $this->m_catatan->get_all_catatan();
+        } else {
+            $user_id = $this->session->userdata('id');
+            $data['catatan_kegiatan'] = $this->m_catatan->get_user_catatan($user_id);
+        }
 
-    $this->load->view('templates/header');
-    $this->load->view('templates/aside');
-    $this->load->view('v_catatan_harian', $data);
-    $this->load->view('templates/footer');
-}
+        $this->load->view('templates/header');
+        $this->load->view('templates/aside');
+        $this->load->view('v_catatan_harian', $data);
+        $this->load->view('templates/footer');
+    }
 
 
     public function tambahcatatan()
@@ -59,7 +59,7 @@ class Catatan extends CI_Controller
     {
         $where = array('id' => $id);
         $this->m_catatan->hapus_data($where, 'catatan_kegiatan');
-          $this->session->set_flashdata('message', '<script>Swal.fire({
+        $this->session->set_flashdata('message', '<script>Swal.fire({
   title: "Success!",
   text: "Hapus Data Berhasil",
   icon: "success"
@@ -90,7 +90,7 @@ class Catatan extends CI_Controller
             'id'          => $id
         );
         $this->m_catatan->update_data($where, $data, 'catatan_kegiatan');
-          $this->session->set_flashdata('message', '<script>Swal.fire({
+        $this->session->set_flashdata('message', '<script>Swal.fire({
   title: "Success!",
   text: "Edit Data Berhasil",
   icon: "success"
@@ -100,12 +100,12 @@ class Catatan extends CI_Controller
     public function detail($id)
     {
         $cttan = $this->m_catatan->detail_data($id);
-        $data['cttan'] = $cttan; 
+        $data['cttan'] = $cttan;
         $this->load->view('v_detail', $data);
     }
     public function pdf()
     {
-       
+
         $this->load->library('pdfgenerator');
         $data['title'] = "Data Random";
         $data['catatan_kegiatan'] = $this->m_catatan->tampil_data('catatan_kegiatan')->result();
@@ -129,33 +129,23 @@ class Catatan extends CI_Controller
         $spreadsheet->getProperties()->setLastModifiedBy("Framework Dunia");
         $spreadsheet->getProperties()->setTitle("Daftar catatan");
 
-        // Menetapkan judul kolom
         $sheet->setCellValue('A1', 'NO');
-        $sheet->setCellValue('B1', 'NAMA catatan');
-        $sheet->setCellValue('C1', 'NIM');
-        $sheet->setCellValue('D1', 'TANGGAL LAHIR');
-        $sheet->setCellValue('E1', 'JURUSAN');
-        $sheet->setCellValue('F1', 'ALAMAT');
-        $sheet->setCellValue('G1', 'EMAIL');
-        $sheet->setCellValue('H1', 'NO. TELEPON');
+        $sheet->setCellValue('B1', 'Hari');
+        $sheet->setCellValue('C1', 'Tanggal');
+        $sheet->setCellValue('D1', 'Catatan');
+        $sheet->setCellValue('E1', 'Status');
 
-        // Menambahkan data catatan
         $baris = 2;
         $no = 1;
 
         foreach ($data['catatan'] as $cttan) {
-            $sheet->setCellValue('A' . $baris, $no++);  // No urut
-            $sheet->setCellValue('B' . $baris, $cttan->nama);
-            $sheet->setCellValue('C' . $baris, $cttan->nim);
-            $sheet->setCellValue('D' . $baris, $cttan->tgl_lahir);
-            $sheet->setCellValue('E' . $baris, $cttan->jurusan);
-            $sheet->setCellValue('F' . $baris, $cttan->alamat);
-            $sheet->setCellValue('G' . $baris, $cttan->email);
-            $sheet->setCellValue('H' . $baris, $cttan->no_telp);
-
+            $sheet->setCellValue('A' . $baris, $no++);
+            $sheet->setCellValue('B' . $baris, $cttan->hari);
+            $sheet->setCellValue('C' . $baris, $cttan->tanggal);
+            $sheet->setCellValue('D' . $baris, $cttan->catatan);
+            $sheet->setCellValue('E' . $baris, $cttan->status);
             $baris++;
         }
-
         $filename = "Data catatan.xlsx";
 
         // Menyediakan file untuk diunduh oleh user
@@ -168,6 +158,4 @@ class Catatan extends CI_Controller
         $writer->save('php://output');
         exit;
     }
-
-
 }
