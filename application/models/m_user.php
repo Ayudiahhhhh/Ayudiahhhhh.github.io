@@ -46,8 +46,15 @@ class M_user extends CI_Model {
         return $this->db->get()->result();
     }
 
-
     public function getUserById($id) {
         return $this->db->get_where('users', ['id' => $id])->row_array();
     }
+
+    public function get_by_role($role)
+{
+    $this->db->where('role', $role);
+    return $this->db->get('users');
 }
+
+}
+

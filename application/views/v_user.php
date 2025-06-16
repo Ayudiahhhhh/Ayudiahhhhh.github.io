@@ -23,14 +23,14 @@
                     <input class="form-control border-0" type="search" placeholder="Search">
                 </form>
 
-                 <div class="navbar-nav align-items-center ms-auto">
+                <div class="navbar-nav align-items-center ms-auto">
                     <div class="nav-item ">
                         <a href="<?= base_url('login/logout'); ?>" class="nav-link">
-                            <span class="d-none d-lg-inline-flex"> Logout 
-                                </span>
-                                <i class="fas fa-arrow-right"></i>
+                            <span class="d-none d-lg-inline-flex"> Logout
+                            </span>
+                            <i class="fas fa-arrow-right"></i>
                         </a>
-                      
+
                     </div>
                 </div>
             </nav>
@@ -45,21 +45,38 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <i class="fa fa-plus"></i> Tambah user
+                                            <i class="fa fa-plus"></i> Tambah User
                                         </button>
                                     </div>
                                     <div class="col-md-6 text-end">
-                                        <button onclick="window.print()" class="btn btn-secondary">
-                                            <i class="fa fa-print"></i> Print Halaman
-                                        </button>
-                                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenu1"
+                                        <div class="btn-group me-2 mb-2">
+                                            <button onclick="window.print()" class="btn btn-secondary">
+                                                <i class="fa fa-print"></i> Print Halaman
+                                            </button>
+                                        </div>
+
+                                        <div class="btn-group me-2 mb-2">
+                                            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownExport"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
                                                 <i class="fa fa-download"></i> Export
                                             </button>
-                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownExport">
                                                 <li><a class="dropdown-item" href="<?= base_url('user/pdf'); ?>">PDF</a></li>
                                                 <li><a class="dropdown-item" href="<?= base_url('user/excel_html'); ?>">EXCEL</a></li>
                                             </ul>
+                                        </div>
+
+                                        <div class="btn-group mb-2">
+                                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownFilter"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-filter"></i> Filter
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownFilter">
+                                                <li><a class="dropdown-item" href="<?= base_url('user') ?>">All Data</a></li>
+                                                <li><a class="dropdown-item" href="<?= base_url('user?role=admin') ?>">Admin</a></li>
+                                                <li><a class="dropdown-item" href="<?= base_url('user?role=pengguna') ?>">Pengguna</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="table-responsive">
@@ -174,4 +191,3 @@
                     </div>
                 </div>
             </div>
-

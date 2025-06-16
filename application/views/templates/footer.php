@@ -116,17 +116,6 @@
     });
 </script>
 
-<script>
-    $('#filter-status').on('change', function() {
-        let status = $(this).val();
-        $.get("<?= base_url('catatan') ?>", {
-            status: status
-        }, function(res) {
-            $('#catatan-table').html(res);
-        });
-    });
-</script>
-
 </body>
 
 </html>

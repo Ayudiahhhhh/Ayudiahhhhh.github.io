@@ -10,7 +10,14 @@ class User extends CI_Controller
 
     public function index()
     {
+            $role = $this->input->get('role'); // ambil parameter dari URL
+
+    if ($role) {
+        $data['users'] = $this->m_user->get_by_role($role)->result();
+    } else {
         $data['users'] = $this->m_user->tampil_data()->result();
+    }
+
         $this->load->view('templates/header');
         $this->load->view('templates/aside');
         $this->load->view('v_user', $data);
