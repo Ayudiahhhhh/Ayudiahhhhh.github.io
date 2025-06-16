@@ -29,7 +29,8 @@
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Manjing</button>
                         </form>
                         <p class="text-center mb-0">Ira ws due akun durung? <a href="<?= base_url('register'); ?>">daftar</a></p>
-                        <p class="text-center mb-0"><a href="<?= base_url('landing'); ?>">kembali</a></p>
+                        <p class="text-center mb-0"><a href="<?= base_url('landing'); ?>"><i class="fa fa-arrow-left"></i>
+                                kembali</a></p>
                     </div>
                 </div>
             </div>
@@ -54,7 +55,7 @@
     <!-- alert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?= $this->session->flashdata('message'); ?>
-    
+
 </body>
 
 </html>
