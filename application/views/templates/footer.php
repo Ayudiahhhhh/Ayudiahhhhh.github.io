@@ -1,6 +1,6 @@
 <!-- Footer Start -->
 <div class="container-fluid pt-4 px-4">
-    
+
 </div>
 <!-- Footer End -->
 </div>
@@ -87,36 +87,46 @@
 
 
 <script>
-$(document).ready(function () {
-    function validatePassword() {
-        let password = $('#password1').val();
-        let confirm = $('#password2').val();
+    $(document).ready(function() {
+        function validatePassword() {
+            let password = $('#password1').val();
+            let confirm = $('#password2').val();
 
-        if (password !== '' && confirm !== '') {
-            if (password === confirm) {
-                $('#password1, #password2')
-                    .removeClass('is-invalid')
-                    .addClass('is-valid');
+            if (password !== '' && confirm !== '') {
+                if (password === confirm) {
+                    $('#password1, #password2')
+                        .removeClass('is-invalid')
+                        .addClass('is-valid');
 
-                $('#submit').prop('disabled', false);
+                    $('#submit').prop('disabled', false);
+                } else {
+                    $('#password1, #password2')
+                        .removeClass('is-valid')
+                        .addClass('is-invalid');
+
+                    $('#submit').prop('disabled', true);
+                }
             } else {
-                $('#password1, #password2')
-                    .removeClass('is-valid')
-                    .addClass('is-invalid');
-
+                $('#password1, #password2').removeClass('is-valid is-invalid');
                 $('#submit').prop('disabled', true);
             }
-        } else {
-            $('#password1, #password2').removeClass('is-valid is-invalid');
-            $('#submit').prop('disabled', true);
         }
-    }
 
-    $('#password1, #password2').on('input', validatePassword);
-});
+        $('#password1, #password2').on('input', validatePassword);
+    });
 </script>
 
- 
+<script>
+    $('#filter-status').on('change', function() {
+        let status = $(this).val();
+        $.get("<?= base_url('catatan') ?>", {
+            status: status
+        }, function(res) {
+            $('#catatan-table').html(res);
+        });
+    });
+</script>
+
 </body>
 
 </html>

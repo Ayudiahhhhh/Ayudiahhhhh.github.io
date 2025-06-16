@@ -14,18 +14,30 @@ class Catatan extends CI_Controller
 
     public function index()
     {
+        $status = $this->input->get('status'); // Ambil status dari URL
+
         if ($this->session->userdata('role') == 'admin') {
-            $data['catatan_kegiatan'] = $this->m_catatan->get_all_catatan();
+            $query = $this->m_catatan->get_all_catatan();
         } else {
             $user_id = $this->session->userdata('id');
-            $data['catatan_kegiatan'] = $this->m_catatan->get_user_catatan($user_id);
+            $query = $this->m_catatan->get_user_catatan($user_id);
         }
+
+        // Filter berdasarkan status jika ada
+        if (!empty($status)) {
+            $query = array_filter($query, function ($row) use ($status) {
+                return strtolower($row->status) == strtolower($status);
+            });
+        }
+
+        $data['catatan_kegiatan'] = $query;
 
         $this->load->view('templates/header');
         $this->load->view('templates/aside');
         $this->load->view('v_catatan_harian', $data);
         $this->load->view('templates/footer');
     }
+
 
 
     public function tambahcatatan()
@@ -160,9 +172,8 @@ class Catatan extends CI_Controller
     }
 
     public function excel_html()
-{
-    $data['catatan_kegiatan'] = $this->m_catatan->tampil_data('catatan_kegiatan')->result();
-    $this->load->view('catatan_kegiatan_excel', $data);
-}
-
+    {
+        $data['catatan_kegiatan'] = $this->m_catatan->tampil_data('catatan_kegiatan')->result();
+        $this->load->view('catatan_kegiatan_excel', $data);
+    }
 }

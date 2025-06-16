@@ -76,4 +76,24 @@ class M_Catatan extends CI_Model
         $this->db->join('users', 'catatan_kegiatan.users_id = users.id');
         return $this->db->get()->result();
     }
+
+    public function get_all_catatan_by_status($status)
+{
+    $this->db->select('catatan_kegiatan.*, users.username');
+    $this->db->from('catatan_kegiatan');
+    $this->db->join('users', 'catatan_kegiatan.users_id = users.id');
+    $this->db->where('status', $status);
+    return $this->db->get()->result();
+}
+
+public function get_user_catatan_by_status($user_id, $status)
+{
+    $this->db->select('catatan_kegiatan.*, users.username');
+    $this->db->from('catatan_kegiatan');
+    $this->db->join('users', 'catatan_kegiatan.users_id = users.id');
+    $this->db->where('catatan_kegiatan.users_id', $user_id);
+    $this->db->where('catatan_kegiatan.status', $status);
+    return $this->db->get()->result();
+}
+
 }

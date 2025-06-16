@@ -25,7 +25,7 @@
         }
 
         th {
-            background-color: #f2f2f2;
+            background-color:rgb(79, 147, 236);
             text-align: center;
             padding: 8px;
         }

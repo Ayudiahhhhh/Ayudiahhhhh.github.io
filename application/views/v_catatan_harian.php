@@ -66,6 +66,19 @@
                                                 <li><a class="dropdown-item" href="<?= base_url('catatan/excel_html'); ?>">EXCEL</a></li>
                                             </ul>
                                         </div>
+
+                                        <!-- Tombol Filter Catatan -->
+                                        <div class="dropdown">
+                                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fa fa-filter"></i>filter
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
+                                                <li><a class="dropdown-item" href="<?= base_url('catatan') ?>">All Data</a></li>
+                                                <li><a class="dropdown-item" href="<?= base_url('catatan?status=public') ?>">Publish</a></li>
+                                                <li><a class="dropdown-item" href="<?= base_url('catatan?status=private') ?>">Private</a></li>
+                                            </ul>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -81,7 +94,6 @@
                                                 <th scope="col">HARI</th>
                                                 <th scope="col">TANGGAL</th>
                                                 <th scope="col">CATATAN</th>
-                                                <th scope="col">JUMLAH</th>
                                                 <?php if ($this->session->userdata('role') == "pengguna") { ?>
                                                     <th scope="col">STATUS</th>
                                                 <?php } ?>
