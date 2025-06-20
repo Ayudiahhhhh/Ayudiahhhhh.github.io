@@ -193,18 +193,23 @@
 </head>
 
 <body>
+  <header style="display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; background-color: #4A90E2; color: white;">
+  <!-- Logo dan Tulisan -->
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <iframe
+      src="https://lottie.host/embed/ec34c294-6896-4852-8f81-fd6001f58d10/fcHr7c7Lwj.lottie"
+      style="border: none; width: 80px; height: 80px;"></iframe>
+    <span style="font-size: 20px; font-weight: bold;">CatatanKu</span>
+  </div>
 
-  <header>
-    <div class="logo" style="display: flex; align-items: center; gap: 10px;">
-      <img src="assets/foto/logo1.png" alt="Logo" style="height: 40px;">
-      <strong>CatatanKu</strong>
-    </div>
-    <nav>
-      <a href="<?php echo base_url(); ?>">Beranda</a>
-      <a href="#fitur">Fitur</a>
-      <a href="#catatan-publish">Catatan yang Dipublish</a>
-    </nav>
-  </header>
+  <!-- Navbar -->
+  <nav>
+    <a href="<?php echo base_url(); ?>" style="color: white; margin: 0 10px; text-decoration: none;">Beranda</a>
+    <a href="#fitur" style="color: white; margin: 0 10px; text-decoration: none;">Fitur</a>
+    <a href="#catatan-publish" style="color: white; margin: 0 10px; text-decoration: none;">Catatan yang Dipublish</a>
+  </nav>
+</header>
+
 
   <section class="hero">
     <h1>Catat Harimu, Jalani Hidup Lebih Teratur</h1>
