@@ -71,7 +71,7 @@
                                         <div class="dropdown">
                                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa fa-filter"></i>filter
+                                                <i class="fa fa-filter"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenu1">
                                                 <li><a class="dropdown-item" href="<?= base_url('catatan') ?>">All Data</a></li>

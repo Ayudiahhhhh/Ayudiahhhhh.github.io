@@ -69,7 +69,7 @@
                                         <div class="btn-group mb-2">
                                             <button class="btn btn-success dropdown-toggle" type="button" id="dropdownFilter"
                                                 data-bs-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa fa-filter"></i> Filter
+                                                <i class="fa fa-filter"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownFilter">
                                                 <li><a class="dropdown-item" href="<?= base_url('user') ?>">All Data</a></li>
